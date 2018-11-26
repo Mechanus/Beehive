@@ -24,7 +24,7 @@ public abstract class BeeBuilder {
     
     /*
      *  How much damage a Warrior can absorb before dying.
-     *  The range of health will be from 8~15. 
+     *  The range of health will be from 8~20. 
      */
     public abstract void buildHealth();
     
@@ -42,6 +42,7 @@ public abstract class BeeBuilder {
      *  Based on a scale of 1:6. 
      *  // I.E. If 1 is chosen, 1 defender for every 3 
      *  // warriors, with the remainder being attackers
+     *  If attacking while endurance runs out, it will die after battle
      */
     public abstract void buildAttackDefenseRatio();
     
