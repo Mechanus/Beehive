@@ -47,23 +47,22 @@ public class Apiary {
     }
     
     public void addBeehive(int x, int y, BeeBuilder build) {
-        beeHives.add(new Beehive(x, y, build));        
-        aMap[x][y] = "H"+beeHives.size();
+        boolean check = checkMap(x,y);
+        
+        if(check) {
+            beeHives.add(new Beehive(x, y, build));        
+            aMap[x][y] = "H"+beeHives.size();
+        } else {
+            System.out.println("That spot is already taken");
+        }
     }
     
-    public class Cell {
-        int x, y;
-        ArrayList<Cell> neighbors = new ArrayList<>();
+    private boolean checkMap(int newX, int newY) {
+        String cell = aMap[newX][newY];
         
-        Cell(int x, int y) {
-            this.x = x;
-            this.y = y;
+        if(cell.charAt(0) == 'H') {
+            return false;
         }
-        
-        public void addHiveCell(Cell other) {
-            if (!this.neighbors.contains(other)) {
-                this.neighbors.add(other);
-            }
-        }
+        return true;
     }
 }

@@ -8,8 +8,8 @@ public class Application {
         
         sim.addBeehive(4, 17, new KillerBee());
         sim.addBeehive(17, 4, new SweatBee());
+        sim.addBeehive(5, 3, new KillerBee());
 
         sim.printMap();
     }
-
 }
