@@ -32,7 +32,11 @@ public class Apiary {
         
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < y; j++) {
-                aMap[i][j] = "_*";
+                if( i % 2 == 0 && j % 2 == 0) {
+                    aMap[i][j] = " FD";
+                } else {
+                    aMap[i][j] = " - ";
+                }
             }
         }
     }
@@ -51,7 +55,7 @@ public class Apiary {
         
         if(check) {
             beeHives.add(new Beehive(x, y, build));        
-            aMap[x][y] = "H"+beeHives.size();
+            aMap[x][y] = " H"+beeHives.size();
         } else {
             System.out.println("That spot is already taken");
         }
