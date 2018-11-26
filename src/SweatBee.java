@@ -3,7 +3,7 @@
  *  These are our colonizers. They are highly social, live in 
  *  the ground, and have been around for a long time.
  */
-public class SweatBee extends BeeBuilder{
+public class SweatBee extends BeeBuilder {
 
     @Override
     // Colonizers
@@ -33,7 +33,7 @@ public class SweatBee extends BeeBuilder{
     @Override
     // High defender, low attacker
     public void buildAttackDefenseRatio() {
-        bee.setDefenseRatio(5);
+        bee.setDefenseRatio(4);
     }
 
     @Override
