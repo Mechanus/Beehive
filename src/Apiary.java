@@ -78,8 +78,31 @@ public class Apiary {
     }
     
     public void beeMove() {
-        Point loc = beeHives.get(0).getHome();
-        aMap[loc.x][loc.y - 1] = " B1";
+        for (int i = 0; i < beeHives.size(); i++) {
+            Point loc = beeHives.get(i).getHome();
+            aMap[loc.x][loc.y - 1] = " B" + (i+1);
+            
+            //warriorMove(i, loc);
+            droneMove(i, loc);
+        }
+    }
+    
+    /*
+     *  Initial sending of drones
+     *  Each Hive sends out all of it's drones in a simple pattern
+     *  TODO track their movements.
+     *  TODO Check if rested.
+     *  TODO Check if it hits wall.
+     *  TODO If it hits enemy warrior, it dies.
+     */
+    public void droneMove(int index, Point loc) {
+        int[][] directions = new int[][]
+                {{0, 1}, {1, 1}, {1, 0}, {1, -1}, 
+            {0, -1}, {-1, -1}, {-1, 0}, {-1, 1}};
+        for (int i = 0; i < beeHives.get(index).getDrones(); i++) {
+            aMap[loc.x + directions[i][0]]
+                    [loc.y + directions[i][1]] = " D" + (index + 1);
+        }
     }
     
     private boolean checkMap(int newX, int newY) {
