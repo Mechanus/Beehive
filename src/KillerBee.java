@@ -1,10 +1,6 @@
 // https://en.wikipedia.org/wiki/Africanized_bee#Characteristics
 /*
- *  High defenders (Defender numbers high)
- *  Aggressive (Attack and attacker numbers high)
- *  Don't spread well (Low harvest speed)
- *  //// These 3 make me thing small harvest, 50/50 attacker/defender ratio
- *  Pursues over long distances (High endurance)
+ *  These are the fighters. They don't colonize well, but they sure do like to attack.
  */
 public class KillerBee extends BeeBuilder{
 
@@ -36,7 +32,7 @@ public class KillerBee extends BeeBuilder{
     @Override
     // High defender, high attacker, 50/50.
     public void buildAttackDefenseRatio() {
-        bee.setDefenseRatio(2);
+        bee.setDefenseRatio(3);
     }
 
     @Override
