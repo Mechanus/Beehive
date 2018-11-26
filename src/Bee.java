@@ -4,6 +4,7 @@ public class Bee {
     private int attack;
     private int health;
     private int endurance;
+    private int defenseRatio;
     
     // Empty Constructor
     public Bee () {
@@ -11,11 +12,12 @@ public class Bee {
     }
     
     // Constructor in case it should be used.
-    public Bee (int hs, int at, int hl, int en) {
+    public Bee (int hs, int at, int hl, int en, int df) {
         this.harvestSpeed = hs;
         this.attack = at;
         this.health = hl;
         this.endurance = en;
+        this.defenseRatio = df;
     }
     
     /*
@@ -51,5 +53,13 @@ public class Bee {
 
     public void setEndurance(int endurance) {
         this.endurance = endurance;
+    }
+
+    public int getDefenseRatio() {
+        return defenseRatio;
+    }
+
+    public void setDefenseRatio(int defenseRatio) {
+        this.defenseRatio = defenseRatio;
     }
 }
