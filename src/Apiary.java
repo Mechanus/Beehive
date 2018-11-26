@@ -4,6 +4,7 @@ import java.util.ArrayList;
 public class Apiary {
     private static Apiary single_instance = null;
     private static String[][] aMap;
+    private static appEngine game = new appEngine();
     
     int x, y;
     
@@ -77,16 +78,78 @@ public class Apiary {
         System.out.println();
     }
     
+    /*
+     * Will be tied into ticks later on.
+     * Moves the various bees according to ticks
+     * TODO doesn't remember drones locations yet.
+     */
     public void beeMove() {
         for (int i = 0; i < beeHives.size(); i++) {
             Point loc = beeHives.get(i).getHome();
-            aMap[loc.x][loc.y - 1] = " B" + (i+1);
+            //aMap[loc.x][loc.y - 1] = " B" + (i+1);
             
-            //warriorMove(i, loc);
             droneMove(i, loc);
+            
+            Point enemyHive = attackerChoice(i, loc);
+            attackerMove(i, loc, enemyHive);
+            if (enemyHive == loc) {
+                System.out.println(beeHives.get(i).getName() + " wins!");
+                System.exit(1);
+            }
         }
     }
     
+    /*
+     * Locates closest hive.
+     */
+    public Point attackerChoice(int index, Point loc) {
+        double closestHive = 200000000;
+        int tIndex = 0;
+        Point chLoc = loc;
+        
+        Point hive = beeHives.get(index).getHome();
+        
+        for (int i = 0; i < beeHives.size(); i++) {
+            if (i != index) {
+                Point checkHive = beeHives.get(i).getHome();
+                
+                double chDistance = game.checkDistance(
+                        hive, checkHive);
+                
+                if (chDistance < closestHive) {
+                    closestHive = chDistance;
+                    chLoc = checkHive;
+                    tIndex = i;
+                }
+            }
+        }
+        System.out.println("The closest hive to " + 
+        beeHives.get(index).getName() + " is: " + 
+                beeHives.get(tIndex).getName());
+        return chLoc;
+    }
+    
+    /*
+     * Moves Bees towards closest hive
+     */
+    public void attackerMove(int index, Point hive, Point eHive) {
+        int xVal = hive.x;
+        int yVal = hive.y;
+        
+        if(hive.x < eHive.x) {
+            xVal++;
+        } else if (hive.x > eHive.x) {
+            xVal--;
+        }
+        
+        if(hive.y < eHive.y) {
+            yVal++;
+        } else if (hive.y > eHive.y) {
+            yVal--;
+        }
+        
+        aMap[xVal][yVal] = " B"+ (index + 1);
+    }
     /*
      *  Initial sending of drones
      *  Each Hive sends out all of it's drones in a simple pattern
