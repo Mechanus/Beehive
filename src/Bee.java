@@ -5,6 +5,7 @@ public class Bee {
     private int health;
     private int endurance;
     private int defenseRatio;
+    private String name;
     
     // Empty Constructor
     public Bee () {
@@ -61,5 +62,12 @@ public class Bee {
 
     public void setDefenseRatio(int defenseRatio) {
         this.defenseRatio = defenseRatio;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 }

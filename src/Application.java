@@ -10,6 +10,11 @@ public class Application {
         sim.addBeehive(17, 4, new SweatBee());
         sim.addBeehive(5, 3, new KillerBee());
 
-        sim.printMap();
+        sim.beeMove();
+        //sim.printMap();
+        
+        sim.getStats(0);
+        sim.getStats(1);
+        sim.getStats(2);
     }
 }

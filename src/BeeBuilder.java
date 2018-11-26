@@ -40,12 +40,13 @@ public abstract class BeeBuilder {
     /*
      *  Number of defenders left behind per attacker sent out.
      *  Based on a scale of 1:6. 
-     *  // I.E. If 1 is chosen, 1 defender for every 3 
+     *  // I.E. If 1 is chosen, 1 defender for every 6 
      *  // warriors, with the remainder being attackers
      *  If attacking while endurance runs out, it will die after battle
      */
     public abstract void buildAttackDefenseRatio();
     
+    public abstract void buildName();
     // Returns created Bee
     public abstract Bee getBee();
 }

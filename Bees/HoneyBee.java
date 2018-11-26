@@ -31,6 +31,11 @@ public class HoneyBee extends BeeBuilder {
     }
 
     @Override
+    public void buildName() {
+        bee.setName("HoneyBee");
+    }
+    
+    @Override
     public Bee getBee() {
         return bee;
     }

@@ -34,7 +34,14 @@ public class BumbleBee extends BeeBuilder {
     }
 
     @Override
+    public void buildName() {
+        bee.setName("BumbleBee");
+    }
+    
+    @Override
     public Bee getBee() {
         return bee;
     }
+
+   
 }

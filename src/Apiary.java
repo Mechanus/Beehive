@@ -1,3 +1,4 @@
+import java.awt.Point;
 import java.util.ArrayList;
 
 public class Apiary {
@@ -54,11 +55,31 @@ public class Apiary {
         boolean check = checkMap(x,y);
         
         if(check) {
-            beeHives.add(new Beehive(x, y, build));        
+            beeHives.add(new Beehive(x, y, build));
+            beeHives.get(beeHives.size() - 1).setName(beeHives.size());
             aMap[x][y] = " H"+beeHives.size();
         } else {
             System.out.println("That spot is already taken");
         }
+    }
+    
+    public void getStats(int index) {
+        System.out.println(beeHives.get(index).getName() 
+                + " Stats:");
+        System.out.println("Workers: " + 
+                beeHives.get(index).getWorkers());
+        System.out.println("Drones: " + 
+                beeHives.get(index).getWorkers());
+        System.out.println("Defenders: " + 
+                beeHives.get(index).getDefenders());
+        System.out.println("Attackers: " + 
+                beeHives.get(index).getAttackers());
+        System.out.println();
+    }
+    
+    public void beeMove() {
+        Point loc = beeHives.get(0).getHome();
+        aMap[loc.x][loc.y - 1] = " B1";
     }
     
     private boolean checkMap(int newX, int newY) {

@@ -37,6 +37,11 @@ public class SweatBee extends BeeBuilder {
     }
 
     @Override
+    public void buildName() {
+        bee.setName("SweatBee");
+    }
+    
+    @Override
     public Bee getBee() {
         return bee;
     }

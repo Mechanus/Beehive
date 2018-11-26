@@ -36,6 +36,11 @@ public class KillerBee extends BeeBuilder {
     }
 
     @Override
+    public void buildName() {
+        bee.setName("KillerBee");
+    }
+    
+    @Override
     public Bee getBee() {
         return bee;
     }
