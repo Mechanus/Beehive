@@ -39,7 +39,7 @@ public abstract class BeeBuilder {
     
     /*
      *  Number of defenders left behind per attacker sent out.
-     *  Based on a scale of 1:3. 
+     *  Based on a scale of 1:6. 
      *  // I.E. If 1 is chosen, 1 defender for every 3 
      *  // warriors, with the remainder being attackers
      */
