@@ -2,7 +2,7 @@
 /*
  *  These are the fighters. They don't colonize well, but they sure do like to attack.
  */
-public class KillerBee extends BeeBuilder{
+public class KillerBee extends BeeBuilder {
 
     @Override
     // Don't spread well
@@ -26,7 +26,7 @@ public class KillerBee extends BeeBuilder{
     @Override
     // Pursues over long distance
     public void buildEndurance() {
-        bee.setEndurance(5);
+        bee.setEndurance(3);
     }
 
     @Override
