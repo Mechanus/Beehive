@@ -2,10 +2,13 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 public class Beehive {
-    Point loc = null;
+    Point loc = new Point();
     ArrayList<Point> area = null;
     
     Bee bee = null;
+    
+    // Places this name on map.
+    String name;
     
     /*
      * Starting bees.
@@ -20,6 +23,7 @@ public class Beehive {
      * Food is consumed 1:1.
      * Drones eat food first.
      * // This should cause a focus on growth first.
+     * Workers then get the next available food.
      * Defenders eat available food next.
      * Attackers then eat available food.
      * Remaining goes to Queen, which is 1:1 for eggs.
@@ -38,6 +42,14 @@ public class Beehive {
      * // X drone is produced before next type of bee roles are.
      */
     ArrayList<Bee> drone = null;
+    
+    /*
+     * Workers build cells.
+     * 
+     * Each beehive gets as many workers as drones.
+     * 
+     * They require 1 food per 5 ticks else they won't build.
+     */
     
     /*
      * Defenders defend the Queen.
@@ -88,7 +100,6 @@ public class Beehive {
     public Beehive (int xLoc, int yLoc, BeeBuilder build){
         loc.x = xLoc;
         loc.y = yLoc;
-        area.add(loc);
         
         build.buildHarvestSpeed();
         build.buildAttack();
@@ -99,10 +110,7 @@ public class Beehive {
         bee = build.getBee();
     }
     
-    /*public void addArea(int xLoc, int yLoc) {
-        for()
-        if (loc.x == xLoc && loc.y == yLoc) {
-            System.out.println(");
-        }
-    }*/
+    public void addCell() {
+        
+    }
 }
