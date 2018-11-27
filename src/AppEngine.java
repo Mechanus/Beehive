@@ -1,6 +1,13 @@
 import java.awt.Point;
 
-public class appEngine {
+public class AppEngine {
+    
+    /**
+     * Used to determine which is the closest hive.
+     * @param hive Current hive.
+     * @param checkHive Hive to check.
+     * @return distance Which will be checked to see if is the biggest.
+     */
     public double checkDistance(Point hive, Point checkHive) {
         double distance = 0;
         

@@ -3,12 +3,10 @@
  *  by wikipedia.
  */
 
-// TODO determine how queen should be handled.
-
 public abstract class BeeBuilder {
     protected Bee bee = new Bee();
-    protected Bee aBee = new Bee();
-    protected Bee dBee = new Bee();
+    protected Bee abee = new Bee();
+    protected Bee dbee = new Bee();
     
     /*
      *  Ratio of workers to warriors
@@ -49,6 +47,7 @@ public abstract class BeeBuilder {
     public abstract void buildAttackDefenseRatio();
     
     public abstract void buildName();
+    
     // Returns created Bee
     public abstract Bee getBee();
     

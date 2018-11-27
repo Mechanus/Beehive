@@ -11,7 +11,7 @@ public class Bee {
     Point loc = new Point();
     
     // Empty Constructor
-    public Bee () {
+    public Bee() {
         
     }
     

@@ -9,47 +9,47 @@ public class SweatBee extends BeeBuilder {
     // Colonizers
     public void buildHarvestSpeed() {
         bee.setHarvestSpeed(6);
-        aBee.setHarvestSpeed(6);
-        dBee.setHarvestSpeed(6);
+        abee.setHarvestSpeed(6);
+        dbee.setHarvestSpeed(6);
     }
 
     @Override
     // Social, non-aggressive
     public void buildAttack() {
         bee.setAttack(1);
-        aBee.setAttack(1);
-        dBee.setAttack(1);
+        abee.setAttack(1);
+        dbee.setAttack(1);
     }
 
     @Override
     // Been around for a long time, a little more than minimum health
     public void buildHealth() {
         bee.setHealth(9);
-        aBee.setHealth(9); 
-        dBee.setHealth(9);
+        abee.setHealth(9); 
+        dbee.setHealth(9);
     }
 
     @Override
     // Foragers, but not attackers
     public void buildEndurance() {
         bee.setEndurance(2);
-        aBee.setEndurance(2);
-        dBee.setEndurance(2);
+        abee.setEndurance(2);
+        dbee.setEndurance(2);
     }
 
     @Override
     // High defender, low attacker
     public void buildAttackDefenseRatio() {
         bee.setDefenseRatio(4);
-        aBee.setDefenseRatio(4);
-        dBee.setDefenseRatio(4);
+        abee.setDefenseRatio(4);
+        dbee.setDefenseRatio(4);
     }
 
     @Override
     public void buildName() {
         bee.setName("SweatBee");
-        aBee.setName("SweatBee");
-        dBee.setName("SweatBee");
+        abee.setName("SweatBee");
+        dbee.setName("SweatBee");
     }
     
     @Override
@@ -59,11 +59,11 @@ public class SweatBee extends BeeBuilder {
 
     @Override
     public Bee getABee() {
-        return aBee;
+        return abee;
     }
 
     @Override
     public Bee getDBee() {
-        return dBee;
+        return dbee;
     }
 }

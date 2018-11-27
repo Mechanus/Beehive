@@ -6,8 +6,8 @@ public class Beehive {
     ArrayList<Point> area = null;
     
     Bee bee = null;
-    Bee aBee = null;
-    Bee dBee = null;
+    Bee abee = null;
+    Bee dbee = null;
     
     String name;
     
@@ -20,10 +20,10 @@ public class Beehive {
     int numAttackers = 0;
     
     // Used to determine if support or warriors should be produced.
-    int tNumDrones = 0;
-    int tNumWorkers = 0;
-    int tNumDefenders = 0;
-    int tNumAttackers = 0;
+    int tnumdrones = 0;
+    int tnumworkers = 0;
+    int tnumdefenders = 0;
+    int tnumattackers = 0;
     
     // Used to alternate drones direction
     int direction = 0;
@@ -35,9 +35,15 @@ public class Beehive {
     
     BeeBuilder build;
     
-    public Beehive (int xLoc, int yLoc, BeeBuilder build){
-        loc.x = xLoc;
-        loc.y = yLoc;
+    /**
+     * The home of the bees.
+     * @param xloc X-VAL of bees on map.
+     * @param yloc Y-VAL of bees on map.
+     * @param build The type of bees going in hive.
+     */
+    public Beehive(int xloc, int yloc, BeeBuilder build) {
+        loc.x = xloc;
+        loc.y = yloc;
         
         build.buildHarvestSpeed();
         build.buildAttack();
@@ -47,12 +53,12 @@ public class Beehive {
         build.buildName();
         
         bee = build.getBee();
-        aBee = build.getABee();
-        dBee = build.getDBee();
+        abee = build.getABee();
+        dbee = build.getDBee();
         
-        bee.setLoc(xLoc, yLoc);
-        aBee.setLoc(xLoc, yLoc);
-        dBee.setLoc(xLoc, yLoc);
+        bee.setLoc(xloc, yloc);
+        abee.setLoc(xloc, yloc);
+        dbee.setLoc(xloc, yloc);
         
         this.name = bee.getName();
         this.endurance = bee.getEndurance();
@@ -61,19 +67,22 @@ public class Beehive {
         setWarriors();
     }
     
+    /**
+     * Get starting support. Workers/Drones.
+     */
     public void setSupport() {
         for (int i = 0; i < bee.getHarvestSpeed(); i++) {
             if (numBees > 0) {
                 numWorkers++;
                 numBees--;
                 liveBees++;
-                tNumWorkers++;
+                tnumworkers++;
                 
-                if(numBees > 0) {
+                if (numBees > 0) {
                     numDrones++;
                     numBees--;
                     liveBees++;
-                    tNumDrones++;
+                    tnumdrones++;
                 }
             }
         }
@@ -87,19 +96,19 @@ public class Beehive {
         return numDrones;
     }
     
-    /*
-     * TODO This will only work for the first round of ratio adding,
-     * // Needs modification for later on.
+    /**
+     * Sets starting defenders/warriors if possible.
      */
     public void setWarriors() {
-        for(int i = 0; i < numBees; i++) {
-            if(numDefenders < bee.getDefenseRatio()) {
+        for (int i = 0; i < numBees; i++) {
+            if (numDefenders < bee.getDefenseRatio()) {
                 numDefenders++;
             } else {
                 numAttackers++;
             }
         }
     }
+    
     public int getDefenders() {
         return numDefenders;
     }
@@ -117,7 +126,7 @@ public class Beehive {
     }
 
     public String setName(int index) {
-        return this.name = name+index;
+        return this.name = name + index;
     }
     
     public void lowerEndurance() {
@@ -133,13 +142,16 @@ public class Beehive {
     }
     
     public void addFood(int food) {
-        this.food += food*4*numDrones;
+        this.food += food * 4 * numDrones;
     }
     
     public int getFood() {
         return food;
     }
     
+    /**
+     * Starts process of consuming food by first feeding live bees.
+     */
     public void consumeFood() {
         int tempBees = liveBees;
         for (int i = 0; i < tempBees; i++) {
@@ -152,43 +164,46 @@ public class Beehive {
         hatchEggs();
     }
     
+    /**
+     * Remaining food is portioned out to different types of bees.
+     */
     public void hatchEggs() {
-        if (tNumDrones < bee.getHarvestSpeed() && food !=0) {
+        if (tnumdrones < bee.getHarvestSpeed() && food != 0) {
             numDrones++;
-            tNumDrones++;
+            tnumdrones++;
             liveBees++;
             food--;
         }
-        if (tNumWorkers < bee.getHarvestSpeed() && food !=0) {
+        if (tnumworkers < bee.getHarvestSpeed() && food != 0) {
             numWorkers++; 
-            tNumWorkers++;
+            tnumworkers++;
             liveBees++;
             food--;
-            if (tNumDrones < bee.getHarvestSpeed() && food !=0) {
+            if (tnumdrones < bee.getHarvestSpeed() && food != 0) {
                 hatchEggs();
             }
         } 
-        if (tNumDefenders < bee.getDefenseRatio() && food !=0) {
+        if (tnumdefenders < bee.getDefenseRatio() && food != 0) {
             numDefenders++;
-            tNumDefenders++;
+            tnumdefenders++;
             liveBees++;
             food--;
         } 
-        if (tNumAttackers < (6 - bee.getDefenseRatio()) && food !=0) {
+        if (tnumattackers < (6 - bee.getDefenseRatio()) && food != 0) {
             numAttackers++;
-            tNumAttackers++;
+            tnumattackers++;
             liveBees++;
             food--;
-                if (food != 0) {
-                    hatchEggs();
-                }
+            if (food != 0) {
+                hatchEggs();
+            }
         } else {
             if (food != 0) {
                 // Warrior requirements have been met, produce support.
-                tNumDrones = 0;
-                tNumWorkers = 0;
-                tNumDefenders = 0;
-                tNumAttackers = 0;
+                tnumdrones = 0;
+                tnumworkers = 0;
+                tnumdefenders = 0;
+                tnumattackers = 0;
                 hatchEggs();
             }
         }

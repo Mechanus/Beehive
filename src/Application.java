@@ -1,6 +1,10 @@
 
 public class Application {
 
+    /**
+     * User interaction.
+     * @param args Commands passed from command line.
+     */
     public static void main(String[] args) {
         Apiary sim = new Apiary();
         
