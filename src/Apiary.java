@@ -108,6 +108,9 @@ public class Apiary {
                  * Return bees to home (teleportation right now)
                  */
                 currHive.resetEndurance();
+                aMap[currHive.dBee.getLoc().x][currHive.dBee.getLoc().y]
+                        = EMPTY;
+                
                 currHive.dBee.setLoc(currHive.loc.x, currHive.loc.y);
             }
         }

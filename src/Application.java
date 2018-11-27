@@ -13,6 +13,7 @@ public class Application {
 
         sim.beeMove();
         sim.beeMove();
+        sim.beeMove();
         sim.printMap();
         /*
         sim.getStats(0);
