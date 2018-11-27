@@ -12,6 +12,7 @@ public class Application {
         sim.addBeehive(16, 16, new BumbleBee());
 
         sim.beeMove();
+        sim.beeMove();
         sim.printMap();
         /*
         sim.getStats(0);

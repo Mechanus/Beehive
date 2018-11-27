@@ -6,19 +6,20 @@ public class Beehive {
     ArrayList<Point> area = null;
     
     Bee bee = null;
+    Bee aBee = null;
+    Bee dBee = null;
+    
     String name;
     
     int numBees = 6;
+    int numDefenders = 0;
+    int numDrones = 0;
+    int numWorkers = 0;
+    int numAttackers = 0;
     
     int food = 0;
     
-    ArrayList<Bee> workers = new ArrayList<>();
-    
-    ArrayList<Bee> drones = new ArrayList<>();
-
-    ArrayList<Bee> defenders = new ArrayList<>();
-    
-    ArrayList<Bee> attackers = new ArrayList<>();
+    BeeBuilder build;
     
     public Beehive (int xLoc, int yLoc, BeeBuilder build){
         loc.x = xLoc;
@@ -32,6 +33,12 @@ public class Beehive {
         build.buildName();
         
         bee = build.getBee();
+        aBee = build.getABee();
+        dBee = build.getDBee();
+        
+        bee.setLoc(xLoc, yLoc);
+        aBee.setLoc(xLoc, yLoc);
+        dBee.setLoc(xLoc, yLoc);
         
         this.name = bee.getName();
         setSupport();
@@ -41,11 +48,11 @@ public class Beehive {
     public void setSupport() {
         for (int i = 0; i < bee.getHarvestSpeed(); i++) {
             if (numBees > 0) {
-                workers.add(bee);
+                numWorkers++;
                 numBees--;
                 
                 if(numBees > 0) {
-                    drones.add(bee);
+                    numDrones++;
                     numBees--;
                 }
             }
@@ -53,29 +60,32 @@ public class Beehive {
     }
     
     public int getWorkers() {
-        return workers.size();
+        return numWorkers;
     }
     
     public int getDrones() {
-        return drones.size();
+        return numDrones;
     }
     
+    /*
+     * TODO This will only work for the first round of ratio adding,
+     * // Needs modification for later on.
+     */
     public void setWarriors() {
         for(int i = 0; i < numBees; i++) {
-            if(defenders.size() < bee.getDefenseRatio()) {
-                defenders.add(bee);
-                defenders.get(0).setMoveable(false);
+            if(numDefenders < bee.getDefenseRatio()) {
+                numDefenders++;
             } else {
-                attackers.add(bee);
+                numAttackers++;
             }
         }
     }
     public int getDefenders() {
-        return defenders.size();
+        return numDefenders;
     }
     
     public int getAttackers() {
-        return attackers.size();
+        return numAttackers;
     }
     
     public Point getHome() {
@@ -85,7 +95,7 @@ public class Beehive {
     public String getName() {
         return name;
     }
-    
+
     public String setName(int index) {
         return this.name = name+index;
     }
