@@ -64,12 +64,12 @@ public class Beehive {
         for(int i = 0; i < numBees; i++) {
             if(defenders.size() < bee.getDefenseRatio()) {
                 defenders.add(bee);
+                defenders.get(0).setMoveable(false);
             } else {
                 attackers.add(bee);
             }
         }
     }
-    
     public int getDefenders() {
         return defenders.size();
     }

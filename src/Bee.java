@@ -6,6 +6,7 @@ public class Bee {
     private int endurance;
     private int defenseRatio;
     private String name;
+    private boolean moveable = true;
     
     // Empty Constructor
     public Bee () {
@@ -67,7 +68,16 @@ public class Bee {
     public String getName() {
         return name;
     }
+    
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public boolean isMoveable() {
+        return moveable;
+    }
+    
+    public void setMoveable(boolean bool) {
+        this.moveable = bool;
     }
 }

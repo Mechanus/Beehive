@@ -123,9 +123,6 @@ public class Apiary {
                 }
             }
         }
-        System.out.println("The closest hive to " + 
-        beeHives.get(index).getName() + " is: " + 
-                beeHives.get(tIndex).getName());
         return chLoc;
     }
     
@@ -159,15 +156,32 @@ public class Apiary {
      *  TODO If it hits enemy warrior, it dies.
      */
     public void droneMove(int index, Point loc) {
+            
         int[][] directions = new int[][]
                 {{0, 1}, {1, 1}, {1, 0}, {1, -1}, 
             {0, -1}, {-1, -1}, {-1, 0}, {-1, 1}};
+            
+        int food = 0;
+        
         for (int i = 0; i < beeHives.get(index).getDrones(); i++) {
+            
+            food += forageFood(index, loc.x + directions[i][0], 
+                    loc.y + directions[i][1], i);
+            
             aMap[loc.x + directions[i][0]]
                     [loc.y + directions[i][1]] = " D" + (index + 1);
         }
+        System.out.println(beeHives.get(index).getName() + "found " +
+        food + " sources of food!");
     }
     
+    private int forageFood(int index, int xVal, int yVal, int droneIndex) {
+        if(aMap[xVal][yVal] == "FD") {
+            beeHives.get(index).drones.get(droneIndex).setMoveable(false);
+            return 1;
+        }
+        return 0;
+    }
     private boolean checkMap(int newX, int newY) {
         String cell = aMap[newX][newY];
         
