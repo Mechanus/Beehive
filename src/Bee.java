@@ -1,3 +1,4 @@
+import java.awt.Point;
 
 public class Bee {
     private int harvestSpeed;
@@ -7,19 +8,11 @@ public class Bee {
     private int defenseRatio;
     private String name;
     private boolean moveable = true;
+    Point loc = new Point();
     
     // Empty Constructor
     public Bee () {
         
-    }
-    
-    // Constructor in case it should be used.
-    public Bee (int hs, int at, int hl, int en, int df) {
-        this.harvestSpeed = hs;
-        this.attack = at;
-        this.health = hl;
-        this.endurance = en;
-        this.defenseRatio = df;
     }
     
     /*
@@ -79,5 +72,14 @@ public class Bee {
     
     public void setMoveable(boolean bool) {
         this.moveable = bool;
+    }
+    
+    public Point getLoc() {
+        return loc;
+    }
+    
+    public void setLoc(int x, int y) {
+        this.loc.x = x;
+        this.loc.y = y;
     }
 }

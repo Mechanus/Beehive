@@ -7,6 +7,8 @@
 
 public abstract class BeeBuilder {
     protected Bee bee = new Bee();
+    protected Bee aBee = new Bee();
+    protected Bee dBee = new Bee();
     
     /*
      *  Ratio of workers to warriors
@@ -49,4 +51,10 @@ public abstract class BeeBuilder {
     public abstract void buildName();
     // Returns created Bee
     public abstract Bee getBee();
+    
+    // Returns a separately move-able Attacker bee
+    public abstract Bee getABee();
+    
+    // Returns a separately move-able Drone bee
+    public abstract Bee getDBee();
 }
