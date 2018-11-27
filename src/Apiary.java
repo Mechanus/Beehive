@@ -160,6 +160,7 @@ public class Apiary {
         if (chLoc == loc) {
             System.out.println(name + " wins!");
             getResults();
+            printMap();
             System.exit(0);
         }
         return chLoc;
