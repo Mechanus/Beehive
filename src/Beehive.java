@@ -19,7 +19,17 @@ public class Beehive {
     int numWorkers = 0;
     int numAttackers = 0;
     
+    // Used to determine if support or warriors should be produced.
+    int tNumDrones = 0;
+    int tNumWorkers = 0;
+    int tNumDefenders = 0;
+    int tNumAttackers = 0;
+    
+    // Used to alternate drones direction
+    int direction = 0;
+    
     int endurance;
+    int harvestSpeed;
     
     int food = 0;
     
@@ -57,11 +67,13 @@ public class Beehive {
                 numWorkers++;
                 numBees--;
                 liveBees++;
+                tNumWorkers++;
                 
                 if(numBees > 0) {
                     numDrones++;
                     numBees--;
                     liveBees++;
+                    tNumDrones++;
                 }
             }
         }
@@ -121,7 +133,7 @@ public class Beehive {
     }
     
     public void addFood(int food) {
-        this.food += food*2*bee.getHarvestSpeed();
+        this.food += food*4*numDrones;
     }
     
     public int getFood() {
@@ -129,10 +141,69 @@ public class Beehive {
     }
     
     public void consumeFood() {
+        int tempBees = liveBees;
+        for (int i = 0; i < tempBees; i++) {
+            if (food > 0) {
+                food--;
+            } else {
+                liveBees--;
+            }
+        }
+        hatchEggs();
+    }
+    
+    public void hatchEggs() {
+        if (tNumDrones < bee.getHarvestSpeed() && food !=0) {
+            numDrones++;
+            tNumDrones++;
+            liveBees++;
+            food--;
+        }
+        if (tNumWorkers < bee.getHarvestSpeed() && food !=0) {
+            numWorkers++; 
+            tNumWorkers++;
+            liveBees++;
+            food--;
+            if (tNumDrones < bee.getHarvestSpeed() && food !=0) {
+                hatchEggs();
+            }
+        } 
+        if (tNumDefenders < bee.getDefenseRatio() && food !=0) {
+            numDefenders++;
+            tNumDefenders++;
+            liveBees++;
+            food--;
+        } 
+        if (tNumAttackers < (6 - bee.getDefenseRatio()) && food !=0) {
+            numAttackers++;
+            tNumAttackers++;
+            liveBees++;
+            food--;
+                if (food != 0) {
+                    hatchEggs();
+                }
+        } else {
+            if (food != 0) {
+                // Warrior requirements have been met, produce support.
+                tNumDrones = 0;
+                tNumWorkers = 0;
+                tNumDefenders = 0;
+                tNumAttackers = 0;
+                hatchEggs();
+            }
+        }
         
     }
     
     public int getNumBees() {
         return liveBees;
+    }
+    
+    public void newDir() {
+        direction++;
+    }
+    
+    public int getDir() {
+        return (direction % 8);
     }
 }

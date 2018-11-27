@@ -6,14 +6,51 @@ public class Application {
         
         sim.createMap(20, 20);
         
-        sim.addBeehive(4, 16, new KillerBee());
+        //sim.addBeehive(4, 16, new KillerBee());
         sim.addBeehive(16, 4, new SweatBee());
-        sim.addBeehive(6, 2, new KillerBee());
-        sim.addBeehive(16, 16, new BumbleBee());
+        //sim.addBeehive(6, 2, new KillerBee());
+        //sim.addBeehive(16, 16, new BumbleBee());
 
         sim.beeMove();
         sim.beeMove();
         sim.beeMove();
+        
+        sim.beeMove();
+        sim.beeMove();
+        sim.beeMove();
+        
+        sim.beeMove();
+        sim.beeMove();
+        sim.beeMove();
+        
+        sim.beeMove();
+        sim.beeMove();
+        sim.beeMove();
+        
+        sim.beeMove();
+        sim.beeMove();
+        sim.beeMove();
+        
+        sim.beeMove();
+        sim.beeMove();
+        sim.beeMove();
+        
+        sim.beeMove();
+        sim.beeMove();
+        sim.beeMove();
+        
+        sim.beeMove();
+        sim.beeMove();
+        sim.beeMove();
+        
+        sim.beeMove();
+        sim.beeMove();
+        sim.beeMove();
+        
+        sim.beeMove();
+        sim.beeMove();
+        sim.beeMove();
+        
         sim.printMap();
         /*
         sim.getStats(0);

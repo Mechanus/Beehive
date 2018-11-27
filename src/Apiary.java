@@ -68,6 +68,7 @@ public class Apiary {
             beeHives.add(new Beehive(x, y, build));
             beeHives.get(beeHives.size() - 1).setName(beeHives.size());
             aMap[x][y][0] = " H"+beeHives.size();
+            aMap[x][y][1] = " H"+beeHives.size();
         } else {
             System.out.println("That spot is already taken");
         }
@@ -94,16 +95,19 @@ public class Apiary {
     public void beeMove() {
         for (int i = 0; i < beeHives.size(); i++) {
             Beehive currHive = beeHives.get(i);
+            
             if(currHive.getEndurance() > 0) {
                 currHive.lowerEndurance();
                 
                 droneMove(currHive, currHive.dBee, i);
-                Point enemyHive = attackerChoice(currHive.aBee.getLoc(), i);
-                attackerMove(i, currHive.aBee, enemyHive);
+                if (currHive.getAttackers() > 0) {
+                    Point enemyHive = attackerChoice(currHive.aBee.getLoc(), i);
+                    attackerMove(i, currHive.aBee, enemyHive);
                 
-                if (enemyHive == currHive.getHome()) {
-                    System.out.println(currHive.getName() + " wins!");
-                    System.exit(1);
+                    if (enemyHive == currHive.getHome()) {
+                        System.out.println(currHive.getName() + " wins!");
+                        System.exit(1);
+                    }
                 }
             } else {
                 /*
@@ -112,6 +116,9 @@ public class Apiary {
                  * Sets memory to empty as well.
                  */
                 currHive.resetEndurance();
+                currHive.newDir();
+                currHive.dBee.setMoveable(true);
+                currHive.aBee.setMoveable(true);
                 
                 // Reset Drones
                 aMap[currHive.dBee.getLoc().x][currHive.dBee.getLoc().y][0]
@@ -125,12 +132,16 @@ public class Apiary {
                         [currHive.aBee.getLoc().y][0]
                         = aMap[currHive.aBee.getLoc().x]
                                 [currHive.aBee.getLoc().y][1];
-                
                 System.out.println(currHive.getName()+" has gained "
                         + currHive.getFood() + " food! They have to feed " +
                         currHive.getNumBees() + " bees!");
                 
                 currHive.consumeFood();
+                System.out.println(currHive.getName()+" now has " + 
+                currHive.getDrones() + " drones,"
+                        + currHive.getWorkers() + " workers, "
+                        + currHive.getDefenders() + " defenders, and "
+                        + currHive.getAttackers() + " attackers!");
             }
         }
     }
@@ -207,8 +218,8 @@ public class Apiary {
             int orgX = dBee.getLoc().x;
             int orgY = dBee.getLoc().y;
             
-            int xVal = orgX + directions[0][0];
-            int yVal = orgY + directions[0][1];
+            int xVal = orgX + directions[cHive.getDir()][0];
+            int yVal = orgY + directions[cHive.getDir()][1];
             
             if(forageFood(dBee, xVal, yVal)) {
                 cHive.addFood(1);
