@@ -90,7 +90,6 @@ public class Apiary {
     /*
      * Will be tied into ticks later on.
      * Moves the various bees according to ticks
-     * TODO doesn't remember drones locations yet.
      */
     public void beeMove() {
         for (int i = 0; i < beeHives.size(); i++) {
@@ -98,14 +97,11 @@ public class Apiary {
             if(currHive.getEndurance() > 0) {
                 currHive.lowerEndurance();
                 
-                Point loc = currHive.getHome();
-                
-                droneMove(currHive.dBee, i);
-                
+                droneMove(currHive, currHive.dBee, i);
                 Point enemyHive = attackerChoice(currHive.aBee.getLoc(), i);
                 attackerMove(i, currHive.aBee, enemyHive);
                 
-                if (enemyHive == loc) {
+                if (enemyHive == currHive.getHome()) {
                     System.out.println(currHive.getName() + " wins!");
                     System.exit(1);
                 }
@@ -116,11 +112,25 @@ public class Apiary {
                  * Sets memory to empty as well.
                  */
                 currHive.resetEndurance();
+                
+                // Reset Drones
                 aMap[currHive.dBee.getLoc().x][currHive.dBee.getLoc().y][0]
                         = EMPTY;
                 aMap[currHive.dBee.getLoc().x][currHive.dBee.getLoc().y][1]
                         = EMPTY;
                 currHive.dBee.setLoc(currHive.loc.x, currHive.loc.y);
+                
+                // Reset Attackers
+                aMap[currHive.aBee.getLoc().x]
+                        [currHive.aBee.getLoc().y][0]
+                        = aMap[currHive.aBee.getLoc().x]
+                                [currHive.aBee.getLoc().y][1];
+                
+                System.out.println(currHive.getName()+" has gained "
+                        + currHive.getFood() + " food! They have to feed " +
+                        currHive.getNumBees() + " bees!");
+                
+                currHive.consumeFood();
             }
         }
     }
@@ -180,17 +190,14 @@ public class Apiary {
     /*
      *  Initial sending of drones
      *  Each Hive sends out all of it's drones in a simple pattern
-     *  TODO track their movements.
      *  TODO Check if rested.
      *  TODO Check if it hits wall.
      *  TODO If it hits enemy warrior, it dies.
      */
-    public void droneMove(Bee dBee, int index) {
+    public void droneMove(Beehive cHive, Bee dBee, int index) {
         int[][] directions = new int[][]
                 {{0, 1}, {1, 1}, {1, 0}, {1, -1}, 
             {0, -1}, {-1, -1}, {-1, 0}, {-1, 1}};  
-
-        int food = 0;
         /*
          * If bee hasn't already found food. Move.
          * Movement is a simple path.
@@ -203,7 +210,9 @@ public class Apiary {
             int xVal = orgX + directions[0][0];
             int yVal = orgY + directions[0][1];
             
-            food += forageFood(dBee, xVal, yVal);
+            if(forageFood(dBee, xVal, yVal)) {
+                cHive.addFood(1);
+            }
             
             /*
              * Replaces empty trails.
@@ -223,12 +232,12 @@ public class Apiary {
      * If food, the set drone to immovable
      * Refresh imobile when endurance is up.
      */
-    private int forageFood(Bee dBee, int xVal, int yVal) {
+    private boolean forageFood(Bee dBee, int xVal, int yVal) {
         if(aMap[xVal][yVal][0].equals(FOOD)) {
             dBee.setMoveable(false);
-            return 1;
+            return true;
         }
-        return 0;
+        return false;
     }
     
     /*

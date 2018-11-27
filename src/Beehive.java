@@ -12,6 +12,8 @@ public class Beehive {
     String name;
     
     int numBees = 6;
+    int liveBees = 0;
+    
     int numDefenders = 0;
     int numDrones = 0;
     int numWorkers = 0;
@@ -54,10 +56,12 @@ public class Beehive {
             if (numBees > 0) {
                 numWorkers++;
                 numBees--;
+                liveBees++;
                 
                 if(numBees > 0) {
                     numDrones++;
                     numBees--;
+                    liveBees++;
                 }
             }
         }
@@ -114,5 +118,21 @@ public class Beehive {
     
     public void resetEndurance() {
         this.endurance = bee.getEndurance();
+    }
+    
+    public void addFood(int food) {
+        this.food += food*2*bee.getHarvestSpeed();
+    }
+    
+    public int getFood() {
+        return food;
+    }
+    
+    public void consumeFood() {
+        
+    }
+    
+    public int getNumBees() {
+        return liveBees;
     }
 }
