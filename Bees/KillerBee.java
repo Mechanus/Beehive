@@ -7,9 +7,9 @@ public class KillerBee extends BeeBuilder {
     @Override
     // Don't spread well
     public void buildHarvestSpeed() {
-        bee.setHarvestSpeed(2);
-        aBee.setHarvestSpeed(2);
-        dBee.setHarvestSpeed(2);
+        bee.setHarvestSpeed(4);
+        aBee.setHarvestSpeed(4);
+        dBee.setHarvestSpeed(4);
     }
 
     @Override

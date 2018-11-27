@@ -3,9 +3,9 @@ public class HoneyBee extends BeeBuilder {
     
     @Override
     public void buildHarvestSpeed() {
-        bee.setHarvestSpeed(3);
-        aBee.setHarvestSpeed(3);
-        dBee.setHarvestSpeed(3);
+        bee.setHarvestSpeed(5);
+        aBee.setHarvestSpeed(5);
+        dBee.setHarvestSpeed(5);
     }
 
     @Override

@@ -8,9 +8,9 @@ public class SweatBee extends BeeBuilder {
     @Override
     // Colonizers
     public void buildHarvestSpeed() {
-        bee.setHarvestSpeed(5);
-        aBee.setHarvestSpeed(5);
-        dBee.setHarvestSpeed(5);
+        bee.setHarvestSpeed(6);
+        aBee.setHarvestSpeed(6);
+        dBee.setHarvestSpeed(6);
     }
 
     @Override

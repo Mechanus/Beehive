@@ -6,8 +6,8 @@ public class Application {
         
         sim.createMap(20, 20);
         
-        //sim.addBeehive(4, 16, new KillerBee());
-        sim.addBeehive(16, 4, new SweatBee());
+        sim.addBeehive(4, 16, new KillerBee());
+        //sim.addBeehive(16, 4, new SweatBee());
         //sim.addBeehive(6, 2, new KillerBee());
         //sim.addBeehive(16, 16, new BumbleBee());
 
@@ -52,6 +52,7 @@ public class Application {
         sim.beeMove();
         
         sim.printMap();
+        sim.getResults();
         /*
         sim.getStats(0);
         sim.getStats(1);

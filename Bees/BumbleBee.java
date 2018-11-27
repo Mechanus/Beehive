@@ -5,9 +5,9 @@ public class BumbleBee extends BeeBuilder {
     @Override
     // Don't spread well
     public void buildHarvestSpeed() {
-        bee.setHarvestSpeed(2);
-        aBee.setHarvestSpeed(2);
-        dBee.setHarvestSpeed(2);
+        bee.setHarvestSpeed(3);
+        aBee.setHarvestSpeed(3);
+        dBee.setHarvestSpeed(3);
     }
 
     @Override

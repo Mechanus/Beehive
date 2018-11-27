@@ -101,13 +101,9 @@ public class Apiary {
                 
                 droneMove(currHive, currHive.dBee, i);
                 if (currHive.getAttackers() > 0) {
-                    Point enemyHive = attackerChoice(currHive.aBee.getLoc(), i);
+                    Point enemyHive = attackerChoice(currHive.getName(), 
+                            currHive.aBee.getLoc(), i);                 
                     attackerMove(i, currHive.aBee, enemyHive);
-                
-                    if (enemyHive == currHive.getHome()) {
-                        System.out.println(currHive.getName() + " wins!");
-                        System.exit(1);
-                    }
                 }
             } else {
                 /*
@@ -137,11 +133,6 @@ public class Apiary {
                         currHive.getNumBees() + " bees!");
                 
                 currHive.consumeFood();
-                System.out.println(currHive.getName()+" now has " + 
-                currHive.getDrones() + " drones,"
-                        + currHive.getWorkers() + " workers, "
-                        + currHive.getDefenders() + " defenders, and "
-                        + currHive.getAttackers() + " attackers!");
             }
         }
     }
@@ -149,7 +140,7 @@ public class Apiary {
     /*
      * Locates closest hive.
      */
-    public Point attackerChoice(Point loc, int index) {
+    public Point attackerChoice(String name, Point loc, int index) {
         double closestHive = 200000000;
         Point chLoc = loc;
         
@@ -165,6 +156,11 @@ public class Apiary {
                     chLoc = checkHive;
                 }
             }
+        }
+        if (chLoc == loc) {
+            System.out.println(name + " wins!");
+            getResults();
+            System.exit(0);
         }
         return chLoc;
     }
@@ -262,5 +258,17 @@ public class Apiary {
             return false;
         }
         return true;
+    }
+    
+    public void getResults() {
+        for (int i = 0; i < beeHives.size(); i++) {
+            Beehive currHive = beeHives.get(i);
+            
+            System.out.println(currHive.getName()+" now has " + 
+                    currHive.getDrones() + " drones,"
+                            + currHive.getWorkers() + " workers, "
+                            + currHive.getDefenders() + " defenders, and "
+                            + currHive.getAttackers() + " attackers!");
+        }
     }
 }
