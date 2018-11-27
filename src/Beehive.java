@@ -17,6 +17,8 @@ public class Beehive {
     int numWorkers = 0;
     int numAttackers = 0;
     
+    int endurance;
+    
     int food = 0;
     
     BeeBuilder build;
@@ -41,6 +43,8 @@ public class Beehive {
         dBee.setLoc(xLoc, yLoc);
         
         this.name = bee.getName();
+        this.endurance = bee.getEndurance();
+        
         setSupport();
         setWarriors();
     }
@@ -98,5 +102,17 @@ public class Beehive {
 
     public String setName(int index) {
         return this.name = name+index;
+    }
+    
+    public void lowerEndurance() {
+        endurance--;
+    }
+    
+    public int getEndurance() {
+        return endurance;
+    }
+    
+    public void resetEndurance() {
+        this.endurance = bee.getEndurance();
     }
 }

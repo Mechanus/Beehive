@@ -88,16 +88,27 @@ public class Apiary {
     public void beeMove() {
         for (int i = 0; i < beeHives.size(); i++) {
             Beehive currHive = beeHives.get(i);
-            Point loc = currHive.getHome();
-            //aMap[loc.x][loc.y - 1] = " B" + (i+1);
-            
-            droneMove(currHive, i);
-            
-            Point enemyHive = attackerChoice(currHive, loc, i);
-            attackerMove(i, loc, enemyHive);
-            if (enemyHive == loc) {
-                System.out.println(currHive.getName() + " wins!");
-                System.exit(1);
+            if(currHive.getEndurance() > 0) {
+                currHive.lowerEndurance();
+                
+                Point loc = currHive.getHome();
+                
+                droneMove(currHive, i);
+                
+                Point enemyHive = attackerChoice(currHive, loc, i);
+                attackerMove(i, loc, enemyHive);
+                
+                if (enemyHive == loc) {
+                    System.out.println(currHive.getName() + " wins!");
+                    System.exit(1);
+                }
+            } else {
+                /*
+                 * Reset endurance
+                 * Return bees to home (teleportation right now)
+                 */
+                currHive.resetEndurance();
+                currHive.dBee.setLoc(currHive.loc.x, currHive.loc.y);
             }
         }
     }
@@ -155,7 +166,6 @@ public class Apiary {
      *  TODO If it hits enemy warrior, it dies.
      */
     public void droneMove(Beehive cHive, int index) {
-        
         int[][] directions = new int[][]
                 {{0, 1}, {1, 1}, {1, 0}, {1, -1}, 
             {0, -1}, {-1, -1}, {-1, 0}, {-1, 1}};  
@@ -164,34 +174,33 @@ public class Apiary {
         /*
          * If bee hasn't already found food. Move.
          * Movement is a simple path.
+         * Need to write method that changes their path each time.
          */
-        /*for (int i = 0; i < cHive.getDrones(); i++) {
-            if(cHive.dBee.isMoveable()) {   
-                int xVal = cHive.dBee.getLoc().x
-                        + directions[i][0];
-                int yVal = cHive.dBee.getLoc().y
-                        + directions[i][1];
-                food += forageFood(cHive, xVal, yVal, i);
-                
-                aMap[xVal][yVal] = " D" + (index + 1);
-                
-                //cHive.drones.get(i).setLoc(xVal, yVal);
-            }*/
-        if(cHive.dBee.isMoveable()) {   
-            int xVal = cHive.dBee.getLoc().x
-                    + directions[0][0];
-            int yVal = cHive.dBee.getLoc().y
-                    + directions[0][1];
+        if(cHive.dBee.isMoveable()) {
+            
+            int orgX = cHive.dBee.getLoc().x;
+            int orgY = cHive.dBee.getLoc().y;
+            
+            int xVal = orgX + directions[0][0];
+            int yVal = orgY + directions[0][1];
+            
             food += forageFood(cHive, xVal, yVal);
             
+            if(aMap[orgX][orgY]
+                    .charAt(1) != 'H') {
+                aMap[orgX][orgY] = EMPTY;
+            }
             aMap[xVal][yVal] = " D" + (index + 1);
             
             cHive.dBee.setLoc(xVal, yVal);
         }
-        System.out.println(cHive.getName() + " found " +
-        food + " sources of food!");
     }
     
+    /*
+     * Determine if tile is food.
+     * If food, the set drone to immovable
+     * Refresh imobile when endurance is up.
+     */
     private int forageFood(Beehive cHive, int xVal, int yVal) {
         if(aMap[xVal][yVal].equals(FOOD)) {
             cHive.dBee.setMoveable(false);
@@ -200,6 +209,10 @@ public class Apiary {
         return 0;
     }
     
+    /*
+     * Determines if a hive cell may be placed in the location
+     * Doesn't check wall boundaries.
+     */
     private boolean checkMap(int newX, int newY) {
         String cell = aMap[newX][newY];
         
